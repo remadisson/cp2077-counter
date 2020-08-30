@@ -1,0 +1,25 @@
+{
+  "name": "cp2077-counter",
+  "version": "1.0.0",
+  "description": "This NodeJS App, sends everyday one tweet until Cyberpunk2077 is released!",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remadisson/cp2077-counter.git"
+  },
+  "keywords": [
+    "cyberpunk",
+    "nodejs",
+    "counter",
+    "twitter"
+  ],
+  "author": "remadisson",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/remadisson/cp2077-counter/issues"
+  },
+  "homepage": "https://github.com/remadisson/cp2077-counter#readme"
+}
