@@ -1,8 +1,9 @@
 const dotenv = require('dotenv');
 const twitter = require('twitter-lite');
+const files = require('./files');
 dotenv.config();
-let lastsend = undefined;
 let env = process.env;
+let lastsend = process.env.lastsend;
 
 const client = new twitter({
     consumer_key: env.consumer_key,  
@@ -14,11 +15,11 @@ const client = new twitter({
 module.exports.sendTweet = (message) => {
     let newdate = new Date();
     let lastdate = lastsend != undefined ? new Date(lastsend) : undefined;
-    if(lastsend != undefined || newdate.getDate() == lastdate.getDate()){
+    if(lastsend != undefined || lastdate == undefined ? false : (newdate.getDate() == lastdate.getDate())){
         return false;
     }
     
-    if(newdate.getHours() != 12){
+    if(newdate.getHours() != 10 && lastdate != undefined){
         return false;
     }
 
@@ -28,4 +29,6 @@ module.exports.sendTweet = (message) => {
         console.log(new Date());
         console.log(" ");
       }).catch(console.error);
+
+    files.setValue('lastsend', new Date());
 }

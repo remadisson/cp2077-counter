@@ -7,6 +7,7 @@ dotenv.config();
 const scheduler = require('node-schedule');
 
 const twitter = require('./modules/twitter');
+const files = require('./modules/files');
 
 app.use(cors());
 app.use(express.json());
@@ -30,12 +31,8 @@ function getDifference(){
     }
 }
 
-getDifference();
-
-var job = scheduler.scheduleJob('*/30 * * * *', () => {
-    if(!twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!")){
-        console.log("Already send today!");
-    }
+var job = scheduler.scheduleJob('*/15 * * * *', () => {
+    twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!");
 });
 
 
