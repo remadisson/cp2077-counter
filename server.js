@@ -18,15 +18,15 @@ function getDifference(){
     let finish = new Date("2020-11-19");
     let now = new Date();
 
-    var days = Math.ceil((finish.getTime() - now.getTime()) / (1000 * 3600 * 24));
+    var days = (finish.getTime() - now.getTime()) / (1000 * 3600 * 24);
     var hours = days / 24;
     var minutes = hours / 60;
 
-    if(days > 0){
-        return [days, "Days"];
-    } else if(hours > 0){
+    if(days >= 1){
+        return [Math.ceil(days), "Days"];
+    } else if(hours >= 1){
         return [hours, "Hours"];
-    } else if(minutes > 0){
+    } else if(minutes >= 0){
         return [minutes, "Minutes"];
     } else {
         return false;

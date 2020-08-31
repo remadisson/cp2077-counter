@@ -48,12 +48,14 @@ module.exports.sendTweet = (distance, message) => {
           lastdate.getFullYear()
         );
       }
+      break;
     }
 
     case "hours": {
         if(newdate.getMinutes() != 10 && newdate.getMinutes() != 20 && newdate.getMinutes() != 30 && newdate.getMinutes() != 40 && newdate.getMinutes() != 50 && newdate.getMinutes() != 60){
             return "Last send is Today on " + lastdate.getHours() + ":" + lastdate.getMinutes() + ":" + lastdate.getSeconds();
         }
+        break;
     }
 
     case "minutes": {
@@ -67,6 +69,7 @@ module.exports.sendTweet = (distance, message) => {
             return "Last Tweet send!"
         }
     }
+    break;
   }
 
     tweet(distance[0] + " " + distance[1] + " " + message);
