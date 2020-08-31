@@ -18,9 +18,9 @@ module.exports.sendTweet = (message) => {
     let newdate = new Date();
     let lastdate = getType(lastsend) !== undefined ? new Date(lastsend) : undefined;
     
-    // if(lastdate == undefined ? false : (newdate.getDate() == lastdate.getDate())){
-    //     return "Last send is today. (Last: " + lastdate.getDate() + " == " + newdate.getDate() + ")";
-    // }
+    if(lastdate == undefined ? false : (newdate.getDate() == lastdate.getDate())){
+        return "Last send is today. (Last: " + lastdate.getDate() + " == " + newdate.getDate() + ")";
+    }
 
     if(newdate.getHours() != 10 && lastdate != undefined){
         return "Last send is " + lastdate.getDate() + "/" + lastdate.getMonth() + "/" + lastdate.getFullYear();
