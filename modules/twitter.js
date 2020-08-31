@@ -3,7 +3,7 @@ const twitter = require('twitter-lite');
 const files = require('./files');
 dotenv.config();
 let env = process.env;
-let lastsend = process.env.lastsend;
+
 
 const client = new twitter({
     consumer_key: env.consumer_key,  
@@ -13,22 +13,32 @@ const client = new twitter({
 });
 
 module.exports.sendTweet = (message) => {
-    let newdate = new Date();
-    let lastdate = lastsend != undefined ? new Date(lastsend) : undefined;
-    if(lastsend != undefined || lastdate == undefined ? false : (newdate.getDate() == lastdate.getDate())){
-        return false;
-    }
+    let lastsend = process.env.lastsend;
     
+    let newdate = new Date();
+    let lastdate = getType(lastsend) !== undefined ? new Date(lastsend) : undefined;
+    
+    // if(lastdate == undefined ? false : (newdate.getDate() == lastdate.getDate())){
+    //     return "Last send is today. (Last: " + lastdate.getDate() + " == " + newdate.getDate() + ")";
+    // }
+
     if(newdate.getHours() != 10 && lastdate != undefined){
-        return false;
+        return "Last send is " + lastdate.getDate() + "/" + lastdate.getMonth() + "/" + lastdate.getFullYear();
     }
 
     client.post('statuses/update', { status: message }).then(tweet => {
-        console.log("You send the tweet successfully!");
         console.log(tweet.text);
-        console.log(new Date());
         console.log(" ");
       }).catch(console.error);
 
     files.setValue('lastsend', new Date());
+    return "Tweet send!";
 }
+
+var getType = function (value){
+    try {
+        return (new Function("return " + value + ";"))();
+    } catch(e) {
+        return value;
+    }
+};

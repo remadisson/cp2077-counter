@@ -31,11 +31,11 @@ function getDifference(){
     }
 }
 
-var job = scheduler.scheduleJob('*/15 * * * *', () => {
-    twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!");
+var job = scheduler.scheduleJob('*/5 * * * *', () => {
+    console.log(twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!"));
 });
 
 
 let listener = app.listen(5000, () => {
-    console.log(chalk.cyan("> Listening on port: " + listener.address().port));
+    console.log(chalk.cyan(new Date().getTime() + "> Listening on port: " + listener.address().port));
 });

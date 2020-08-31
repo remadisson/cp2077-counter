@@ -5,7 +5,6 @@ let parsedFile = parse(sourcePath);
 
 module.exports.setValue = (key, value) => {
     parsedFile[key] = value;
+    process.env[key] = value;
     fs.writeFileSync('./.env', stringify(parsedFile))
 }
-
-this.setValue('lastsend', 'undefined');
