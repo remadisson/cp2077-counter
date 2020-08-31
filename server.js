@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const chalk = require('chalk');
-
+const dotenv = require('dotenv');
+dotenv.config();
 const scheduler = require('node-schedule');
 
 const twitter = require('./modules/twitter');
@@ -32,10 +33,11 @@ function getDifference(){
     }
 }
 
-twitter.sendTweet('This is a tweet to test the Twitter-API! :)');
 
-var job = scheduler.scheduleJob('43 * * * *', () => {
-    console.log("Thicc cock!");
+var job = scheduler.scheduleJob('12 * * *', () => {
+    if(!twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!")){
+        console.log("Already send today!");
+    }
 });
 
 

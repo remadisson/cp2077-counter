@@ -1,22 +1,27 @@
-const twitter = require('twitter');
 const dotenv = require('dotenv');
+const twitter = require('twitter-lite');
 dotenv.config();
+let lastsend = undefined;
+let env = process.env;
 
-let client = new twitter({
-    consumer_key: process.env.consumer_key,
-    consumer_secret: process.env.consumer_secret,
-    bearer_token: process.env.bearer_token,
-    //access_token_key: process.env.access_token_key,
-    //access_token_secret: process.env.access_token_secret,
+const client = new twitter({
+    consumer_key: env.consumer_key,  
+    consumer_secret: env.consumer_secret,  
+    access_token_key: env.access_token_key,  
+    access_token_secret: env.access_token_secret  
 });
 
-module.exports.sendTweet = async(message) => {
-    await client.post('statuses/update', {status: message}).then((tweet) =>{
-        console.log("Tweet has been send!");
-        console.log(tweet);
+module.exports.sendTweet = (message) => {
+    let newdate = new Date();
+    let lastdate = lastsend != undefined ? new Date(lastsend) : undefined;
+    if(lastsend != undefined || newdate.getDate() == lastdate.getDate()){
+        return false;
+    }
+    
+    client.post('statuses/update', { status: message }).then(tweet => {
+        console.log("You send the tweet successfully!");
+        console.log(tweet.text);
         console.log(new Date());
         console.log(" ");
-    }).catch((error) => {
-        console.log(error);
-    });
+      }).catch(console.error);
 }
