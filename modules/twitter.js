@@ -18,6 +18,10 @@ module.exports.sendTweet = (message) => {
         return false;
     }
     
+    if(newdate.getHours() != 12){
+        return false;
+    }
+
     client.post('statuses/update', { status: message }).then(tweet => {
         console.log("You send the tweet successfully!");
         console.log(tweet.text);

@@ -13,10 +13,7 @@ app.use(express.json());
 
 function getDifference(){
     let finish = new Date("2020-11-19");
-    console.log(finish);
     let now = new Date();
-    
-    console.log(now);
 
     var days = Math.round((finish.getTime() - now.getTime()) / (1000 * 3600 * 24));
     var hours = days / 24;
@@ -33,8 +30,9 @@ function getDifference(){
     }
 }
 
+getDifference();
 
-var job = scheduler.scheduleJob('12 * * *', () => {
+var job = scheduler.scheduleJob('*/30 * * * *', () => {
     if(!twitter.sendTweet(getDifference() + " until Cyberpunk 2077 release!")){
         console.log("Already send today!");
     }
